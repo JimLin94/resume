@@ -1,6 +1,8 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const isProd = process.env.NODE_ENV === 'production'
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   context: __dirname,
@@ -13,28 +15,31 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     port: 3000,
+    contentBase: path.resolve(__dirname, './src/public'),
+    publicPath: '/',
   },
   // Enable sourcemaps for debugging webpack's output.
-  devtool: !isProd && 'source-map',
+  devtool: isProd ? 'eval' : 'source-map',
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    // extensions: ['.ts', '.tsx'],
-    // modules: ['src', 'node_modules']
+    extensions: ['.ts', '.tsx', '.js', '.html'],
     alias: {
       containers: path.resolve(__dirname, './src/containers/'),
       components: path.resolve(__dirname, './src/components/'),
+      constants: path.resolve(__dirname, './src/constants'),
     },
   },
   module: {
     rules: [
-      {
-        test: /\.ts(x?)$/,
+			{
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
+        use: [{
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
           },
-        ],
+        }],
       },
       {
         test: /\.(html)$/,
@@ -46,6 +51,34 @@ module.exports = {
               removeComments: false,
               collapseWhitespace: false,
             },
+          },
+        ],
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // fallback to style-loader in development
+          !isProd
+            ? 'style-loader'
+            : MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              config: {
+                path: 'postcss.config.js'
+              }
+            }
+          },
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif|css)$/i,
+        use: [
+          {
+            loader: 'file-loader',
           },
         ],
       },
@@ -61,8 +94,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
-      title: "Jim's resume",
     }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
+    new CopyPlugin([
+      { from: 'src/public', to: 'dist/public' },
+    ]),
   ],
   externals: {
     react: 'React',

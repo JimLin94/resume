@@ -10,7 +10,11 @@
         "baseUrl": "./src",
         "paths": {
           "containers/*": ["containers/*"],
-          "components/*": ["components/*"]
+          "components/*": ["components/*"],
+          "constants/*": ["constants/*"],
         }
-    }
+    },
+    "exclude": [
+      "dist"
+    ]
 }

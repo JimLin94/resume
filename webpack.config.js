@@ -31,15 +31,17 @@ module.exports = {
   },
   module: {
     rules: [
-			{
+      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.(html)$/,
@@ -58,24 +60,22 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // fallback to style-loader in development
-          !isProd
-            ? 'style-loader'
-            : MiniCssExtractPlugin.loader,
+          !isProd ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               sourceMap: true,
               config: {
-                path: 'postcss.config.js'
-              }
-            }
+                path: 'postcss.config.js',
+              },
+            },
           },
           'sass-loader',
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|css)$/i,
+        test: /\.(png|jpe?g|gif|css|woff(2)?|ttf|eot)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -101,9 +101,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new CopyPlugin([
-      { from: 'src/public', to: 'dist/public' },
-    ]),
+    new CopyPlugin([{ from: 'src/public', to: 'dist/public' }]),
   ],
   externals: {
     react: 'React',

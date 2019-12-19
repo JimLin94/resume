@@ -1,0 +1,178 @@
+$main-theme: #4a63e7;
+$second-theme: #ff5959;
+
+$break-small: 768px;
+$break-large: 1024px;
+$tall-height: 500px;
+
+@mixin respond-to($media) {
+  @if $media==handhelds {
+    @media only screen and (max-width: $break-small) {
+      @content;
+    }
+  }
+
+  @else if $media==medium-screens {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) {
+      @content;
+    }
+  }
+
+  @else if $media==wide-screens {
+    @media only screen and (min-width: $break-large) {
+      @content;
+    }
+  }
+}
+
+h1, h2, h3, p, span {
+  line-height: 1.5em;
+  letter-spacing: 1px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+html {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h1,
+h2,
+h3,
+h4 {
+  &::after {
+    content: "";
+    background-color:
+      $second-theme;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    height: 6px;
+    width: 6px;
+  }
+}
+
+.tall {
+  min-height: $tall-height;
+}
+
+#app {
+  width: 100%;
+  font-size: 1em;
+  padding: .5em 15px;
+
+  .profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      margin: 0 10px;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+
+  .main {
+    transition: all .3s ease-in-out;
+
+    .m-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 1.5rem 0;
+      padding: .5em 1em;
+      background-color: $main-theme;
+      border-radius: 20px;
+      color: #fff;
+
+      button {
+        cursor: pointer;
+        background: 0 0;
+        border: 0;
+        outline: none;
+        vertical-align: middle;
+        padding: 0;
+
+        >span {
+          background:
+            #fff;
+          border-radius: 10px;
+          display: block;
+          height: 4px;
+          width: 25px;
+
+          &:nth-child(2) {
+            margin-top: 4px;
+            margin-bottom: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .header {
+    width: 265px;
+    min-height: $tall-height;
+    padding: 30px;
+    margin-bottom: 50px;
+    border-radius: 20px;
+    color: #fff;
+    background-color: $main-theme;
+    
+    transition: all .3s ease-in-out;
+
+    .profile {
+      flex-direction: column;
+      align-items: flex-start;
+
+      > h2 {
+        margin-top: 1em;
+      }
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      > a {
+        margin: 1em;
+        transition: all .3s ease-in-out;
+
+        &:hover {
+          color: $second-theme;
+        }
+      }
+    }
+
+    @include respond-to(wide-screens) {}
+  }
+
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

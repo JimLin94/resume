@@ -8,7 +8,7 @@
     "license": "MIT",
     "scripts": {
         "start": "webpack-dev-server --mode=development",
-        "build": "webpack --mode=production"
+        "build": "rimraf ./dist && webpack --mode=production"
     },
     "devDependencies": {
         "@babel/plugin-transform-react-jsx": "^7.7.4",
@@ -24,9 +24,11 @@
         "node-sass": "^4.13.0",
         "path": "^0.12.7",
         "postcss-loader": "^3.0.0",
+        "rimraf": "^3.0.0",
         "sass-loader": "^8.0.0",
         "source-map-loader": "^0.2.4",
         "style-loader": "^1.0.2",
+        "terser-webpack-plugin": "^2.3.1",
         "ts-loader": "^6.2.1",
         "typescript": "^3.7.3",
         "webpack": "^4.41.2",

@@ -1,10 +1,11 @@
-const path = require('path')
+const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const isProd = process.env.NODE_ENV === 'production';
+const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = {
+const config = {
   context: __dirname,
   entry: './src/index.tsx',
   output: {
@@ -17,9 +18,13 @@ module.exports = {
     port: 3000,
     contentBase: path.resolve(__dirname, './src/public'),
     publicPath: '/',
+    proxy: {
+      '/public/*': {
+        target: 'http://localhost:3000/',
+        pathRewrite: { '^/public': '' },
+      },  
+    }  
   },
-  // Enable sourcemaps for debugging webpack's output.
-  devtool: isProd ? 'eval' : 'source-map',
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.html'],
@@ -60,7 +65,7 @@ module.exports = {
         test: /\.s[ac]ss$/i,
         use: [
           // fallback to style-loader in development
-          !isProd ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -101,10 +106,62 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
-    new CopyPlugin([{ from: 'src/public', to: 'dist/public' }]),
   ],
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',
   },
-}
+};
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'production') {
+    config.devtool = '';
+    config.optimization = {
+      namedModules: false,
+      namedChunks: false,
+      flagIncludedChunks: true,
+      occurrenceOrder: true,
+      sideEffects: true,
+      usedExports: true,
+      concatenateModules: true,
+      splitChunks: {
+        hidePathInfo: true,
+        minSize: 30000,
+      },
+      noEmitOnErrors: true,
+      checkWasmTypes: true,
+      minimize: true,
+    };
+
+    config.plugins = [
+      ...config.plugins,
+      new TerserPlugin({
+        parallel: true,
+        chunkFilter: () => true,
+        terserOptions: {
+          ecma: 6,
+          output: {
+            comments: false,
+          },
+        },
+      }),
+      new CopyPlugin([{ from: 'src/public', to: 'public' }]),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
+      new webpack.optimize.ModuleConcatenationPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
+    ];
+    config.module.rules[2].use[0] =  MiniCssExtractPlugin.loader;
+  } else {
+    config.plugins = [
+      ...config.plugins,
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('development'),
+      }),
+    ];
+    config.devtool = 'source-map';
+  }
+
+  return config;
+};

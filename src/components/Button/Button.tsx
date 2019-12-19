@@ -8,5 +8,9 @@ interface Props {
 }
 
 export default function Button({ theme = 'red', onClick, children }: Props) {
-  return <button onClick={onClick}>{children}</button>;
+  return (
+    <button className={`btn ${theme}`} onClick={onClick}>
+      {children}
+    </button>
+  );
 }

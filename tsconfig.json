@@ -12,6 +12,7 @@
           "containers/*": ["containers/*"],
           "components/*": ["components/*"],
           "constants/*": ["constants/*"],
+          "utils/*": ["utils/*"],
         }
     },
     "exclude": [

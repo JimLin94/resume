@@ -1,1 +1,3 @@
-export const PROFILE_IMG_LINK = 'https://icon-library.net/images/profile-picture-icon/profile-picture-icon-0.jpg';
+export const PROFILE_IMG_LINK = '/public/avatar.jpg';
+export const PDF_LINK = '/public/resume.pdf';
+export const WORK_FROM_YEAR_TIME_STAMP = new Date('2013/05/01').valueOf(); // Might not be accurate due to the different timezone setting.

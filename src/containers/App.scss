@@ -1,6 +1,6 @@
 $main-theme: #4a63e7;
 $second-theme: #ff5959;
-
+$g-777: #777;
 $break-small: 768px;
 $break-large: 1024px;
 $tall-height: 500px;
@@ -25,22 +25,69 @@ $tall-height: 500px;
   }
 }
 
-h1, h2, h3, p, span {
+h1,
+h2,
+h3,
+p,
+span {
   line-height: 1.5em;
   letter-spacing: 1px;
 }
 
+img {
+  max-width: 100%;
+}
+
+hr {
+  width: 100%;
+  margin: 1.5em 0;
+}
+
+ul {
+  list-style-type: decimal;
+
+  li {
+    margin-bottom: 1em;
+  }
+}
+
+a {
+  cursor: pointer;
+}
+
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 .uppercase {
   text-transform: uppercase;
 }
 
+.margin-bottom-lg {
+  margin-bottom: 50px;
+}
+
+.margin-s {
+  margin: 5px 0;
+}
+
+label {
+  color: $g-777;
+
+  &+span {
+    color: #000;
+  }
+}
+
 html {
-  font-size: 16px;
+  scroll-behavior: smooth;
+  font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  @include respond-to(wide-screens) {
+    font-size: 16px;
+  }
 }
 
 h1,
@@ -64,26 +111,24 @@ h4 {
 }
 
 #app {
+  display: flex;
+  justify-content: center;
+  max-width: 1280px;
   width: 100%;
+  margin: 0 auto;
   font-size: 1em;
   padding: .5em 15px;
+
+  @include respond-to(wide-screens) {
+    flex-direction: row-reverse;
+    padding: 50px 15px;
+  }
 
   .profile {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      margin: 0 10px;
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-color: #fff;
-      border-radius: 50%;
-    }
 
     h2 {
       margin: 0;
@@ -95,6 +140,10 @@ h4 {
   .main {
     transition: all .3s ease-in-out;
 
+    @include respond-to(wide-screens) {
+      width: 80%;
+    }
+
     .m-header {
       display: flex;
       flex-direction: row;
@@ -105,6 +154,10 @@ h4 {
       background-color: $main-theme;
       border-radius: 20px;
       color: #fff;
+
+      @include respond-to(wide-screens) {
+        display: none;
+      }
 
       button {
         cursor: pointer;
@@ -131,42 +184,56 @@ h4 {
     }
   }
 
-  .header {
+  .header-wrapper {
+    position: relative;
     width: 265px;
-    min-height: $tall-height;
-    padding: 30px;
-    margin-bottom: 50px;
-    border-radius: 20px;
-    color: #fff;
-    background-color: $main-theme;
-    
-    transition: all .3s ease-in-out;
 
-    .profile {
-      flex-direction: column;
-      align-items: flex-start;
-
-      > h2 {
-        margin-top: 1em;
-      }
+    @include respond-to(wide-screens) {
+      width: 300px;
+      margin: 0 50px 50px 0;
     }
 
-    nav {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+    .header {
+      position: fixed;
+      top: 50px;
+      width: 265px;
+      height: $tall-height;
+      padding: 30px;
+      margin: 50px 0;
+      border-radius: 20px;
+      color: #fff;
+      background-color: $main-theme;
+      transition: all .3s ease-in-out;
 
-      > a {
-        margin: 1em;
-        transition: all .3s ease-in-out;
+      @include respond-to(wide-screens) {
+        width: 300px;
+        margin: 0 50px 50px 0;
+      }
 
-        &:hover {
-          color: $second-theme;
+      .profile {
+        flex-direction: column;
+        align-items: flex-start;
+
+        >h2 {
+          margin-top: 1em;
+        }
+      }
+
+      nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        >a {
+          margin: 1em;
+          transition: all .3s ease-in-out;
+
+          &:hover {
+            color: $second-theme;
+          }
         }
       }
     }
-
-    @include respond-to(wide-screens) {}
   }
 
   .center-content {
@@ -174,5 +241,35 @@ h4 {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+
+    @include respond-to(wide-screens) {
+      width: 70%;
+      margin: 0 auto;
+
+      h2 {
+        font-size: 4em;
+      }
+    }
+  }
+
+  .icons {
+    display: flex;
+    flex-direction: row;
+    flex-flow: wrap;
+    justify-content: space-evenly;
+
+    >* {
+      margin-bottom: 30px;
+    }
+  }
+
+  .desc {
+    display: flex;
+    flex-direction: column;
+
+    @include respond-to(wide-screens) {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
   }
 }

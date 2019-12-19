@@ -3,7 +3,7 @@ $second-theme: #ff5959;
 $g-777: #777;
 $break-small: 768px;
 $break-large: 1024px;
-$tall-height: 500px;
+$tall-height: 550px;
 
 @mixin respond-to($media) {
   @if $media==handhelds {
@@ -106,6 +106,31 @@ h4 {
   }
 }
 
+// TODO: Remove this after v2.
+.temp-block {
+  display: flex;
+
+  @include respond-to(wide-screens) {
+    display: none;
+  }
+}
+.temp-header-block {
+  display: none;
+  font-size: 0.8em;
+
+  @include respond-to(wide-screens) {
+    display: flex;
+  }
+
+  label {
+    color: #cccccc;
+  }
+
+  span {
+    color: #fff;
+  }
+}
+
 .tall {
   min-height: $tall-height;
 }
@@ -145,6 +170,9 @@ h4 {
     }
 
     .m-header {
+      // TODO: on going
+      display: none;
+
       display: flex;
       flex-direction: row;
       justify-content: flex-start;

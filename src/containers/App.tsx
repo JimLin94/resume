@@ -41,20 +41,34 @@ export default function App() {
     location.href = 'https://github.com/JimLin94/resume';
   }
 
+const renderTempBioBlock = (
+  <Fragment>
+    <p>
+      I am Jim, web developer from Taipei, Taiwan. I have {careerTime} years
+      experience of web development so far. Specialize in Front-end development.
+    </p>
+    <p className="margin-s">
+      <label>Name:</label> <span>Jim Lin</span>
+    </p>
+    <p className="margin-s">
+      <label>Birthday:</label> <span>4 September, 1987</span>
+    </p>
+    <p className="margin-s">
+      <label>location:</label> <span>Taipei, Taiwan</span>
+    </p>
+    <p className="margin-s">
+      <label>Email:</label> <span>jimlin7694@gmail.com</span>
+    </p>
+    <hr />
+    <Button onClick={downloadPDF}>
+      <span>Download CV</span>
+    </Button>
+  </Fragment>
+);  
+
   return (
     <Fragment>
       <div className="main">
-        <div className="m-header">
-          <button>
-            <span />
-            <span />
-            <span />
-          </button>
-          <div className="profile">
-            <Avatar link={PROFILE_IMG_LINK} />
-            <h2>Jim Lin</h2>
-          </div>
-        </div>
         <Block>
           <div className="tall center-content">
             <h2 className="super-lg">Hi, This is Jim Lin.</h2>
@@ -69,31 +83,13 @@ export default function App() {
             </Button>
           </div>
         </Block>
-        <Block theme="white">
-          <h2 className="margin-bottom-lg">About Me</h2>
-          <Avatar link={PROFILE_IMG_LINK} size="lg" />
-          <p>
-            I am Jim, web developer from Taipei, Taiwan. I have {careerTime}{' '}
-            years experience of web development so far. Specialize in Front-end
-            development.
-          </p>
-          <p className="margin-s">
-            <label>Name:</label> <span>Jim Lin</span>
-          </p>
-          <p className="margin-s">
-            <label>Birthday:</label> <span>4 September, 1987</span>
-          </p>
-          <p className="margin-s">
-            <label>location:</label> <span>Taipei, Taiwan</span>
-          </p>
-          <p className="margin-s">
-            <label>Email:</label> <span>jimlin7694@gmail.com</span>
-          </p>
-          <hr />
-          <Button onClick={downloadPDF}>
-            <span>Download CV</span>
-          </Button>
-        </Block>
+        <div className="temp-block">
+          <Block theme="white">
+            <h2 className="margin-bottom-lg">About Me</h2>
+            <Avatar link={PROFILE_IMG_LINK} size="lg" />
+            {renderTempBioBlock}
+          </Block>
+        </div>
         <Block theme="white">
           <h2 className="margin-bottom-lg">My Skills</h2>
           <div className="icons">
@@ -207,12 +203,12 @@ export default function App() {
           </div>
         </Block>
       </div>
-      <div className="header-wrapper">
+      <div className="header-wrapper temp-header-block">
         <div className="header">
           <Avatar link={PROFILE_IMG_LINK} size="m" />
           <h1>Jim Lin</h1>
           <p className="uppercase">Front-end Developer</p>
-          <nav>{renderNav}</nav>
+          {renderTempBioBlock}
         </div>
       </div>
     </Fragment>

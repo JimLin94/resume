@@ -8,7 +8,12 @@
     "license": "MIT",
     "scripts": {
         "start": "webpack-dev-server --mode=development",
-        "build": "rimraf ./dist && webpack --mode=production"
+        "build": "rimraf ./dist && webpack --mode=production",
+        "start:prod": "yarn build && bash ./start-simple-server.sh"
+    },
+    "engines": {
+        "node": ">=11.0.0",
+        "yarn": ">=1.10.0"
     },
     "devDependencies": {
         "@babel/plugin-transform-react-jsx": "^7.7.4",

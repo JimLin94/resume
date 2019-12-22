@@ -2,9 +2,22 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Hi, This Is Jim Lin</title>
-        <meta name="description" content="Looking for a senior Front-End develop? Here you go!" />
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+
+        <meta name="theme-color" content="#ffffff">
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>">
+        <meta property="og:description" content="<%= htmlWebpackPlugin.options.meta.description %>">
+        <meta property="og:image" content="<%= htmlWebpackPlugin.options.image %>">
+        <meta property="og:url" content="<%= htmlWebpackPlugin.options.siteUrl %>">
+        <meta property="og:type" content="<%= htmlWebpackPlugin.options.type %>">
+        <meta property="og:locale" content="<%= htmlWebpackPlugin.options.locale %>">
+        <meta property="og:author" content="<%= htmlWebpackPlugin.options.author %>">
+        <meta property="og:site_name" content="<%= htmlWebpackPlugin.options.siteName %>">
         <link rel="stylesheet" href="/public/normalize.css" />
     </head>
     <body>

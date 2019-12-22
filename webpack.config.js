@@ -5,6 +5,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
+const META = {
+  title: 'Jim Lin',
+  description: 'Looking for a senior Front-End develop? Here you go!',
+  imageUrl: 'https://jimlin94.github.io/avatar.jpg',
+  siteUrl: 'https://jimlin94.github.io',
+  type: 'website',
+  siteName: "Jim's resume",
+  locale: 'en-US',
+  author: 'Jim Lin',
+};
+
 const config = {
   context: __dirname,
   entry: './src/index.tsx',
@@ -22,8 +33,8 @@ const config = {
       '/public/*': {
         target: 'http://localhost:3000/',
         pathRewrite: { '^/public': '' },
-      },  
-    }  
+      },
+    },
   },
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
@@ -45,19 +56,6 @@ const config = {
             loader: 'ts-loader',
             options: {
               transpileOnly: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(html)$/,
-        use: [
-          {
-            loader: 'html-loader',
-            options: {
-              minimize: true,
-              removeComments: false,
-              collapseWhitespace: false,
             },
           },
         ],
@@ -100,6 +98,16 @@ const config = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
+      title: META.title,
+      meta: {
+        description: META.description,
+      },
+      image: META.imageUrl,
+      type: META.type,
+      siteUrl: META.siteUrl,
+      siteName: META.siteName,
+      locale: META.locale,
+      author: META.author,
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output

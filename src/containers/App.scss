@@ -13,7 +13,7 @@ $tall-height: 550px;
   }
 
   @else if $media==medium-screens {
-    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) {
+    @media only screen and (min-width: $break-small + 1) {
       @content;
     }
   }
@@ -32,6 +32,10 @@ p,
 span {
   line-height: 1.5em;
   letter-spacing: 1px;
+}
+
+button {
+  border: 0px;
 }
 
 img {
@@ -85,7 +89,7 @@ html {
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  @include respond-to(wide-screens) {
+  @include respond-to(medium-screens) {
     font-size: 16px;
   }
 }
@@ -106,31 +110,6 @@ h4 {
   }
 }
 
-// TODO: Remove this after v2.
-.temp-block {
-  display: flex;
-
-  @include respond-to(wide-screens) {
-    display: none;
-  }
-}
-.temp-header-block {
-  display: none;
-  font-size: 0.8em;
-
-  @include respond-to(wide-screens) {
-    display: flex;
-  }
-
-  label {
-    color: #cccccc;
-  }
-
-  span {
-    color: #fff;
-  }
-}
-
 .tall {
   min-height: $tall-height;
 }
@@ -142,9 +121,9 @@ h4 {
   width: 100%;
   margin: 0 auto;
   font-size: 1em;
-  padding: .5em 15px;
+  padding: 25px 15px;
 
-  @include respond-to(wide-screens) {
+  @include respond-to(medium-screens) {
     flex-direction: row-reverse;
     padding: 50px 15px;
   }
@@ -165,7 +144,11 @@ h4 {
   .main {
     transition: all .3s ease-in-out;
 
-    @include respond-to(wide-screens) {
+    &.offset-right {
+      transform: translateX(90%);
+    }
+
+    @include respond-to(medium-screens) {
       width: 80%;
     }
 
@@ -177,13 +160,13 @@ h4 {
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      margin: 1.5rem 0;
+      margin-bottom: 1.5rem;
       padding: .5em 1em;
       background-color: $main-theme;
       border-radius: 20px;
       color: #fff;
 
-      @include respond-to(wide-screens) {
+      @include respond-to(medium-screens) {
         display: none;
       }
 
@@ -213,29 +196,71 @@ h4 {
   }
 
   .header-wrapper {
-    position: relative;
+    position: fixed;
+    top: 0;
     width: 265px;
+    transform: translateX(-200%);
+    transition: all .3s ease-in-out;
 
-    @include respond-to(wide-screens) {
+    &.mDisplay {
+      transform: translateX(-10%);
+    }
+
+    @include respond-to(medium-screens) {
+      position: relative;
       width: 300px;
       margin: 0 50px 50px 0;
+      transform: none;
     }
 
     .header {
       position: fixed;
-      top: 50px;
       width: 265px;
       height: $tall-height;
+      margin: 25px 0;
       padding: 30px;
-      margin: 50px 0;
       border-radius: 20px;
       color: #fff;
       background-color: $main-theme;
       transition: all .3s ease-in-out;
 
-      @include respond-to(wide-screens) {
+      @include respond-to(medium-screens) {
         width: 300px;
         margin: 0 50px 50px 0;
+      }
+
+      .close {
+        position: absolute;
+        top: 25px;
+        right: 35px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 20px;
+          height: 3px;
+          border-radius: 20px;
+          background-color: #fff;
+          transform: rotate(45deg);
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 20px;
+          height: 3px;
+          border-radius: 20px;
+          background-color: #fff;
+          transform: rotate(135deg);
+        }
+
+        @include respond-to(medium-screens) {
+          display: none;
+        }
       }
 
       .profile {
@@ -253,11 +278,26 @@ h4 {
         justify-content: flex-start;
 
         >a {
+          position: relative;
           margin: 1em;
           transition: all .3s ease-in-out;
 
-          &:hover {
-            color: $second-theme;
+          &.active {
+            &::before {
+              content: '';
+              position: absolute;
+              left: -1em;
+              top: 0;
+              bottom: 0;
+              width: 1.5px;
+              background-color: $second-theme;
+            }
+          }
+
+          @include respond-to(medium-screens) {
+            &:hover {
+              color: $second-theme;
+            }
           }
         }
       }
@@ -270,7 +310,7 @@ h4 {
     align-items: flex-start;
     flex-direction: column;
 
-    @include respond-to(wide-screens) {
+    @include respond-to(medium-screens) {
       width: 70%;
       margin: 0 auto;
 
@@ -295,7 +335,7 @@ h4 {
     display: flex;
     flex-direction: column;
 
-    @include respond-to(wide-screens) {
+    @include respond-to(medium-screens) {
       flex-direction: row;
       justify-content: space-evenly;
     }

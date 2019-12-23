@@ -19,8 +19,19 @@
         <meta property="og:author" content="<%= htmlWebpackPlugin.options.author %>">
         <meta property="og:site_name" content="<%= htmlWebpackPlugin.options.siteName %>">
         <link rel="stylesheet" href="/public/normalize.css" />
+        <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
     </head>
     <body>
+        <noscript>
+          <div id="noscript">
+            <div class="noscript">
+              <div class="noscript-body">
+                <h1>Oops! Can't Run Javascript</h1>
+              </div>
+              <h2>Oops, Please Enable Javascript on This Browser And Refresh the Page.</h2>
+            </div>
+          </div>        
+        </noscript>
         <div id="app" />
     </body>
 </html>

@@ -147,6 +147,7 @@ a {
   }
 
   .main {
+    -webkit-overflow-scrolling: touch;
     transition: all .3s ease-in-out;
 
     &.offset-right {

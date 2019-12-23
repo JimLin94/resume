@@ -1,4 +1,4 @@
-export default function debounce(func: () => void, delay: number) {
+export default function debounce(fn: () => void, delay: number) {
   let timer: number = null;
 
   return function() {
@@ -8,7 +8,7 @@ export default function debounce(func: () => void, delay: number) {
     clearTimeout(timer);
     // @ts-ignore
     timer = setTimeout(function() {
-      func.apply(context, args);
+      fn.apply(context, args);
     }, delay);
   };
 }

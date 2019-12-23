@@ -13,6 +13,7 @@ import LazyImage from 'components/LazyImage/LazyImage';
 import { calcCareerTimestampToYear } from 'utils/time';
 import { checkBrowser } from 'utils/compatibility';
 import debounce from 'utils/debounce';
+import throttle from 'utils/throttle';
 
 import './App.scss';
 
@@ -31,6 +32,7 @@ const downloadPDF = () => {
 };
 
 const careerTime = calcCareerTimestampToYear(WORK_FROM_YEAR_TIME_STAMP);
+const SCROLL_MARGIN_TOP = 50;
 
 let nav: JSX.Element[] = [];
 let content: JSX.Element[] = [];
@@ -142,12 +144,60 @@ const contentNavMap = [
               <h4>Main Products: </h4>
 
               <ul>
-                <li>https://www.cnyes.com</li>
-                <li>https://invest.cnyes.com</li>
-                <li>https://fund.cnyes.com </li>
-                <li>https://stock.cnyes.com</li>
-                <li>https://news.cnyes.com</li>
-                <li>https://www.cnyes.com/video</li>
+                <li>
+                  <a
+                    href="https://www.cnyes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.cnyes.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://invest.cnyes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://invest.cnyes.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://fund.cnyes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://fund.cnyes.com{' '}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://stock.cnyes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://stock.cnyes.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://news.cnyes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://news.cnyes.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.cnyes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.cnyes.com/video
+                  </a>
+                </li>
               </ul>
 
               <h4>Services: </h4>
@@ -184,7 +234,15 @@ const contentNavMap = [
               <h4>Main Products: </h4>
 
               <ul>
-                <li>https://www.editing.tw</li>
+                <li>
+                  <a
+                    href="https://www.editing.tw"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.editing.tw
+                  </a>
+                </li>
               </ul>
 
               <h4>Services: </h4>
@@ -252,7 +310,7 @@ const reducer = (state: State, action: Action) => {
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const blockOffset = useRef<number[]>([]);
+  const blockOffset = useRef<{ offsetTop: number; divHeight: number }[]>([]);
 
   const handleClickNav = (navIdx: number) => (e: MouseEvent) => {
     e.preventDefault();
@@ -269,11 +327,6 @@ export default function App() {
         });
       }
     }
-
-    dispatch({
-      type: ActionTypes.ScrollToBlockId,
-      payload: navIdx,
-    });
   };
 
   const renderNav = nav.map((n, idx) => (
@@ -292,16 +345,22 @@ export default function App() {
     });
   };
 
-  const handleScroll = debounce(function() {
+  const handleScroll = throttle(function() {
     for (const idx in blockOffset.current) {
-      if (window.scrollY + 150 > blockOffset.current[idx]) {
+      if (
+        window.scrollY >
+          blockOffset.current[idx].offsetTop - SCROLL_MARGIN_TOP &&
+        blockOffset.current[idx].offsetTop +
+          blockOffset.current[idx].divHeight >
+          window.scrollY
+      ) {
         dispatch({
           type: ActionTypes.ScrollToBlockId,
           payload: +idx,
         });
       }
     }
-  }, 500);
+  }, 1000);
 
   useEffect(() => {
     const blockOffsetY = [];
@@ -310,7 +369,10 @@ export default function App() {
       const block = document.getElementById('' + idx);
 
       if (block) {
-        blockOffsetY.push(block.offsetTop);
+        blockOffsetY.push({
+          offsetTop: block.offsetTop,
+          divHeight: block.clientHeight,
+        });
       }
     }
 

@@ -347,3 +347,96 @@ template {
 [hidden] {
   display: none;
 }
+
+/**
+ *  Add no script DOM
+ */
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+#noscript {
+  position: relative;
+  height: 100vh;
+}
+
+#noscript .noscript {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.noscript {
+  max-width: 710px;
+  width: 100%;
+  text-align: center;
+  padding: 0px 15px;
+  line-height: 1.4;
+}
+
+.noscript .noscript-body {
+  height: 100px;
+  line-height: 100px;
+  margin-bottom: 30px;
+}
+
+.noscript .noscript-body h1 {
+  font-family: 'Fredoka One', cursive;
+  font-size: 35px;
+  margin: 0px;
+  color: #ff508e;
+  text-transform: uppercase;
+}
+
+.noscript h2 {
+  font-family: 'Fredoka One',
+  cursive;
+  font-size: 22px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #222;
+  margin: 0;
+}
+
+.noscript a {
+  font-family: 'Fredoka One',
+  cursive;
+  display: inline-block;
+  font-weight: 700;
+  border-radius: 15px;
+  text-decoration: none;
+  color: #39b1cb;
+}
+
+.noscript a>.arrow {
+  position: relative;
+  top: -2px;
+  border: solid #39b1cb;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  -webkit-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+@media only screen and (max-width: 767px) {
+  .noscript .noscript-body {
+    height: 100px;
+    line-height: 50px;
+  }
+
+  .noscript .noscript-body h1 {
+    font-size: 35px;
+  }
+}

@@ -1,6 +1,7 @@
 import { h, Fragment } from 'preact';
 import { useReducer, useEffect, useRef } from 'preact/compat';
 import cx from 'classnames';
+import * as smoothscroll from 'smoothscroll-polyfill';
 import {
   PROFILE_IMG_LINK,
   PDF_LINK,
@@ -11,13 +12,14 @@ import Button from 'components/Button/Button';
 import Avatar from 'components/Avatar/Avatar';
 import LazyImage from 'components/LazyImage/LazyImage';
 import { calcCareerTimestampToYear } from 'utils/time';
-import { checkBrowser } from 'utils/compatibility';
-import debounce from 'utils/debounce';
 import throttle from 'utils/throttle';
 
 import './App.scss';
 
-const isIEorSafari = checkBrowser(['ie', 'safari']);
+smoothscroll.polyfill();
+
+// @ts-ignore
+window.__forceSmoothScrollPolyfill__ = true;
 
 const goSourceCode = () => {
   location.href = 'https://github.com/JimLin94/resume';
@@ -318,14 +320,11 @@ export default function App() {
     const targetBlock = document.getElementById('' + navIdx);
 
     if (targetBlock) {
-      if (isIEorSafari) {
-        window.scrollTo(0, targetBlock.offsetTop);
-      } else {
-        window.scrollTo({
-          top: targetBlock.offsetTop,
-          behavior: 'smooth',
-        });
-      }
+      window.scrollTo({
+        top: targetBlock.offsetTop,
+        left: 0,
+        behavior: 'smooth',
+      });
     }
   };
 

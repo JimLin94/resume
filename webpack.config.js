@@ -16,6 +16,20 @@ const META = {
   author: 'Jim Lin',
 };
 
+const commonModuleRules = isProd => [
+  {
+    test: /\.s[c]ss$/i,
+    exclude: /node_modules/,
+    use: [
+      // fallback to style-loader in development
+      isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+      'css-loader',
+      'postcss-loader',
+      'sass-loader',
+    ],
+  },
+];
+
 const config = {
   context: __dirname,
   entry: './src/index.tsx',
@@ -44,6 +58,7 @@ const config = {
       components: path.resolve(__dirname, './src/components/'),
       constants: path.resolve(__dirname, './src/constants'),
       utils: path.resolve(__dirname, './src/utils'),
+      sass: path.resolve(__dirname, './src/sass'),
     },
   },
   module: {
@@ -58,24 +73,6 @@ const config = {
               transpileOnly: true,
             },
           },
-        ],
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          // fallback to style-loader in development
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-              config: {
-                path: 'postcss.config.js',
-              },
-            },
-          },
-          'sass-loader',
         ],
       },
       {
@@ -142,6 +139,11 @@ module.exports = (env, argv) => {
       minimize: true,
     };
 
+    config.module.rules = [
+      ...config.module.rules,
+      ...commonModuleRules(true),
+    ]
+
     config.plugins = [
       ...config.plugins,
       new TerserPlugin({
@@ -169,6 +171,7 @@ module.exports = (env, argv) => {
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
     ];
+    config.module.rules = [...config.module.rules, ...commonModuleRules(false)];    
     config.devtool = 'source-map';
   }
 

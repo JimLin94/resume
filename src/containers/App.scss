@@ -68,11 +68,14 @@ label {
 html {
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  overflow-x: hidden;
 
   @include respond-to(medium-screens) {
     font-size: 16px;
   }
+}
+
+body, html {
+  overflow-x: hidden;
 }
 
 h1,
@@ -124,6 +127,7 @@ h4 {
 
   .main {
     transition: all .3s ease-in-out;
+    z-index: 1;
 
     &.offset-right {
       transform: translateX(280px);
@@ -134,9 +138,7 @@ h4 {
     }
 
     .m-header {
-      // TODO: on going
       display: none;
-
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -176,6 +178,20 @@ h4 {
     }
   }
 
+  .content-cover {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+
+    &.mDisplay {
+      display: block;
+    }
+  }
+
   .header-wrapper {
     position: fixed;
     top: 0;
@@ -183,6 +199,7 @@ h4 {
     width: 265px;
     transform: translateX(-200%);
     transition: all .3s ease-in-out;
+    z-index: 10;
 
     &.mDisplay {
       transform: translateX(0);
@@ -213,15 +230,17 @@ h4 {
 
       .close {
         position: absolute;
+        width: 50px;
+        height: 50px;
         top: 25px;
-        right: 35px;
+        right: 20px;
         z-index: 5;
 
         &::before {
           content: '';
           position: absolute;
           top: 0;
-          left: 0;
+          right: 0;
           width: 20px;
           height: 3px;
           border-radius: 20px;
@@ -234,7 +253,7 @@ h4 {
           content: '';
           position: absolute;
           top: 0;
-          left: 0;
+          right: 0;
           width: 20px;
           height: 3px;
           border-radius: 20px;

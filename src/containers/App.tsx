@@ -338,7 +338,8 @@ export default function App() {
     </a>
   ));
 
-  const handleToggleSidebar = () => {
+  const handleToggleSidebar = (e: MouseEvent) => {
+    e.preventDefault();
     dispatch({
       type: ActionTypes.toggleMobileSidebar,
     });
@@ -415,6 +416,10 @@ export default function App() {
           <nav>{renderNav}</nav>
         </div>
       </div>
+      <div
+        className={cx('content-cover', { mDisplay: state.shouldShowSidebar })}
+        onClick={handleToggleSidebar}
+      />
     </Fragment>
   );
 }

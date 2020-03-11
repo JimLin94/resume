@@ -7,7 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const META = {
   title: 'Jim Lin',
-  description: 'Looking for a senior Front-End develop? Here you go!',
+  description: 'Looking for a Front-End developer?',
   imageUrl: 'https://jimlin94.github.io/avatar.jpg',
   siteUrl: 'https://jimlin94.github.io',
   type: 'website',

@@ -5,12 +5,9 @@ LIGHTBLUE="\033[1;34m"
 RED="\033[0;31m"
 LIGHTGREEN="\033[1;32m"
 
-if [[ $(python --version 2>&1) =~ 2 ]]
+if [[ $(python --version 2>&1) =~ 2 ]];
   then
-    echo -e "${YELLOW}Enter the location you wanna serve:${LIGHTGREEN}"
-    read path
-    cd $path
-
+    cd "./dist"
     echo -e "${LIGHTBLUE}Run Python 2 script to run a simple http server."
     echo -e "${RED}Press ctrl + c to exit the server.${NOCOLOR}"
     python -m SimpleHTTPServer 8080

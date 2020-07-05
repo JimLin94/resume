@@ -24,7 +24,15 @@ const commonModuleRules = isProd => [
       // fallback to style-loader in development
       isProd ? MiniCssExtractPlugin.loader : 'style-loader',
       'css-loader',
-      'postcss-loader',
+      {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+          config: {
+            path: 'postcss.config.js'
+          }
+        }
+      },
       'sass-loader',
     ],
   },
@@ -32,10 +40,13 @@ const commonModuleRules = isProd => [
 
 const config = {
   context: __dirname,
-  entry: './src/index.tsx',
+  entry: {
+    client: ['./src/index.tsx'],
+    vendor: ['preact', 'classnames'],
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].[contenthash:8].js',
     publicPath: '/',
   },
   devServer: {
@@ -92,6 +103,7 @@ const config = {
     ],
   },
   plugins: [
+    new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
@@ -131,8 +143,16 @@ module.exports = (env, argv) => {
       usedExports: true,
       concatenateModules: true,
       splitChunks: {
-        hidePathInfo: true,
-        minSize: 30000,
+        cacheGroups: {
+          // match the entry point and spit out the file named here
+          vendor: {
+            chunks: 'initial',
+            name: 'vendor',
+            test: 'vendor',
+            filename: 'vendor.js',
+            enforce: true,
+          },
+        },
       },
       noEmitOnErrors: true,
       checkWasmTypes: true,
@@ -171,7 +191,7 @@ module.exports = (env, argv) => {
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
     ];
-    config.module.rules = [...config.module.rules, ...commonModuleRules(false)];    
+    config.module.rules = [...config.module.rules, ...commonModuleRules(false)];
     config.devtool = 'source-map';
   }
 

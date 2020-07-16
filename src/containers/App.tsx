@@ -13,6 +13,7 @@ import Avatar from 'components/Avatar/Avatar';
 import LazyImage from 'components/LazyImage/LazyImage';
 import { calcCareerTimestampToYear } from 'utils/time';
 import throttle from 'utils/throttle';
+import defaultConsole from 'utils/defaultConsole';
 
 import './App.scss';
 
@@ -377,6 +378,7 @@ export default function App() {
     }
 
     blockOffset.current = blockOffsetY;
+    defaultConsole();
   }, []);
 
   useEffect(() => {

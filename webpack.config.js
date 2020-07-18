@@ -42,7 +42,7 @@ const config = {
   context: __dirname,
   entry: {
     client: ['./src/index.tsx'],
-    vendor: ['preact', 'classnames'],
+    vendor: ['react', 'react-dom', 'classnames'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -54,6 +54,7 @@ const config = {
     port: 3000,
     contentBase: path.resolve(__dirname, './src/public'),
     publicPath: '/',
+    open: true,
     proxy: {
       '/public/*': {
         target: 'http://localhost:3000/',
@@ -125,10 +126,6 @@ const config = {
       chunkFilename: '[id].css',
     }),
   ],
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-  },
 };
 
 module.exports = (env, argv) => {

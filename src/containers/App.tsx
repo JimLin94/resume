@@ -1,5 +1,4 @@
-import { h, Fragment } from 'preact';
-import { useReducer, useEffect, useRef } from 'preact/compat';
+import React, { useReducer, useEffect, useRef } from 'react';
 import cx from 'classnames';
 import * as smoothscroll from 'smoothscroll-polyfill';
 import {
@@ -269,10 +268,10 @@ const contentNavMap = [
   },
 ];
 
-for (const n in contentNavMap) {
-  nav.push(contentNavMap[n].menu);
-  content.push(<div id={n}>{contentNavMap[n].content}</div>);
-}
+contentNavMap.forEach((n, idx) => {
+  nav.push(n.menu);
+  content.push(<div key={idx} id={idx}>{n.content}</div>);
+})
 
 enum ActionTypes {
   toggleMobileSidebar,
@@ -315,7 +314,7 @@ export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const blockOffset = useRef<{ offsetTop: number; divHeight: number }[]>([]);
 
-  const handleClickNav = (navIdx: number) => (e: MouseEvent) => {
+  const handleClickNav = (navIdx: number) => (e: React.MouseEvent) => {
     e.preventDefault();
 
     const targetBlock = document.getElementById('' + navIdx);
@@ -331,7 +330,7 @@ export default function App() {
 
   const renderNav = nav.map((n, idx) => (
     <a
-      key={n}
+      key={idx}
       className={cx({ active: state.activeBlock === idx })}
       onClick={handleClickNav(idx)}
     >
@@ -339,7 +338,7 @@ export default function App() {
     </a>
   ));
 
-  const handleToggleSidebar = (e: MouseEvent) => {
+  const handleToggleSidebar = (e: React.MouseEvent) => {
     e.preventDefault();
     dispatch({
       type: ActionTypes.toggleMobileSidebar,
@@ -392,7 +391,7 @@ export default function App() {
   }, [blockOffset.current]);
 
   return (
-    <Fragment>
+    <>
       <div className={cx('main', { 'offset-right': state.shouldShowSidebar })}>
         <div className="m-header" onClick={handleToggleSidebar}>
           <button>
@@ -422,6 +421,6 @@ export default function App() {
         className={cx('content-cover', { mDisplay: state.shouldShowSidebar })}
         onClick={handleToggleSidebar}
       />
-    </Fragment>
+    </>
   );
 }

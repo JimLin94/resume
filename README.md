@@ -4,7 +4,7 @@ Create a SPA for demonstrating your resume.
 
 ## Dependencies
 
-- Preack.js
+- React.js
 - Webpack
 - Typescript
 

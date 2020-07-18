@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'preact/compat';
+import { useEffect, useRef } from 'react';
 
 export default function useEventListener(eventName: string, handler: (e: Event) => void, element: any = window) {
   const savedHandler = useRef<(param: any) => void>();

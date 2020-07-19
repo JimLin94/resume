@@ -281,7 +281,7 @@ h4 {
         flex-direction: column;
         justify-content: flex-start;
 
-        >a {
+        a, span {
           position: relative;
           margin: 1em;
           transition: all .3s ease-in-out;

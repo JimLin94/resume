@@ -13,7 +13,7 @@ import LazyImage from 'components/LazyImage/LazyImage';
 import { calcCareerTimestampToYear } from 'utils/time';
 import throttle from 'utils/throttle';
 import defaultConsole from 'utils/defaultConsole';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './App.scss';
 
@@ -42,7 +42,7 @@ let content: JSX.Element[] = [];
 
 const contentNavMap = [
   {
-    menu: <Link to="/first/second">Test</Link>,
+    menu: <Link to="/first">App</Link>,
     content: null,
   },
   {
@@ -316,9 +316,6 @@ const reducer = (state: State, action: Action) => {
 };
 
 export default function App() {
-  const match = useRouteMatch();
-
-  console.log('match', match)
   const [state, dispatch] = useReducer(reducer, initialState);
   const blockOffset = useRef<{ offsetTop: number; divHeight: number }[]>([]);
 
@@ -420,7 +417,7 @@ export default function App() {
         <div className="header">
           <div className="close" onClick={handleToggleSidebar} />
           <Avatar link={PROFILE_IMG_LINK} size="m" />
-          <h1>Jim Lin</h1>
+          <h1>Jim Lin - Test</h1>
           <p className="uppercase">Front-end Developer</p>
           <nav>{renderNav}</nav>
         </div>

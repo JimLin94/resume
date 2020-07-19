@@ -42,7 +42,7 @@ const config = {
   context: __dirname,
   entry: {
     client: ['./src/index.tsx'],
-    vendor: ['react', 'react-dom', 'classnames'],
+    vendor: ['react', 'react-dom', 'classnames', 'react-router-dom'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

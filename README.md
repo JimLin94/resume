@@ -12,8 +12,7 @@ Create a SPA for demonstrating your resume.
 
 - Run `yarn` to install the dependencies.
 - Run `yarn start` to start the dev-server.
-- Run `yarn start:prod` to build the production bundle and run on the local machine of `localhost:8080` to checkt the result.
-
+- Run `yarn start:prod` to build the production bundle and run on the local machine of `localhost:8080` to check the result.
 
 ## Progress
 
@@ -26,6 +25,6 @@ Create a SPA for demonstrating your resume.
   - Complete the layout.
 
 - Version 3 - TODO
-  - Add the portfolio.
+  - Implement [Micro-Frontend](https://github.com/module-federation/module-federation-examples/tree/master/comprehensive-demo)
 
 [Checkout out the demo](https://jimlin94.github.io/)

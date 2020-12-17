@@ -28,9 +28,9 @@ const commonModuleRules = isProd => [
         loader: 'postcss-loader',
         options: {
           sourceMap: true,
-          config: {
-            path: 'postcss.config.js'
-          }
+          postcssOptions: {
+            config: path.resolve(__dirname, "postcss.config.js"),
+          },
         }
       },
       'sass-loader',
@@ -104,7 +104,7 @@ const config = {
     ],
   },
   plugins: [
-    new webpack.HashedModuleIdsPlugin(),
+    new webpack.ids.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',

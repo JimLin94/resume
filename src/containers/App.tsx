@@ -132,7 +132,54 @@ const contentNavMap = [
         <div className="timeline">
           <div className="spot">
             <div className="title">
-              <p>2018 - Present</p>
+              <p>2020 - Present</p>
+            </div>
+            <div className="content">
+              <h3>Trend Micro Inc.</h3>
+              <p>Job title: Senior Front-End Developer.</p>
+
+              <p>
+                Trend Micro Inc. (トレンドマイクロ株式会社, Torendo Maikuro Kabushiki-Gaisha) is an American-Japanese multinational cyber security software company with global headquarters in Tokyo, Japan and Irving, Texas, United States, with regional headquarters and R&D centers in Asia, Europe, and North America. The company develops enterprise security software for servers, containers, cloud computing environments, networks, and end points. Its cloud and virtualization security products provide automated security for customers of VMware, Amazon AWS, Microsoft Azure,and Google Cloud Platform.
+              </p>
+
+              <h4>Product Introduction:</h4>
+
+              <ul>
+                <li>
+                  <a
+                    href="https://cloudone.trendmicro.com/docs/file-storage-security/what-is-fss/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    The introduction for the service I work for.
+                  </a>
+                </li>
+              </ul>
+
+              <h4>Services: </h4>
+              <ul>
+                <li>File Storage Security provides anti-malware scanning on resources in Amazon Simple Storage Service (Amazon S3) buckets and other cloud containers.</li>
+              </ul>
+
+              <h4>Responsibility: </h4>
+              <ul>
+                <li>
+                  Develop new web applications and maintain current web
+                  applications.
+                </li>
+                <li>
+                  Develop and maintain the CI/CD.
+                </li>
+                <li>
+                  Develop and maintain the AWS infra.
+                </li>
+              </ul>
+            </div>
+          </div>
+          <hr />
+          <div className="spot">
+            <div className="title">
+              <p>2018 - 2020</p>
             </div>
             <div className="content">
               <h3>Anue.com Inc.</h3>
@@ -216,9 +263,7 @@ const contentNavMap = [
                   Develop new web applications and maintain current web
                   applications.
                 </li>
-                <li>Maintain a React-Native App (1 year).</li>
-                <li>Maintain the products using React.js and Redux.</li>
-                <li>Update the products by adopting React.js v16 Hooks.</li>
+                <li>Maintain a React-Native App.</li>
               </ul>
             </div>
           </div>

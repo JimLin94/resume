@@ -27,11 +27,10 @@ const commonModuleRules = isProd => [
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: true,
-          config: {
-            path: 'postcss.config.js'
-          }
-        }
+          postcssOptions: {
+            plugins: ['postcss-preset-env'],
+          },
+        },
       },
       'sass-loader',
     ],
@@ -104,7 +103,7 @@ const config = {
     ],
   },
   plugins: [
-    new webpack.HashedModuleIdsPlugin(),
+    new webpack.ids.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',

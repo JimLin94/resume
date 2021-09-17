@@ -27,11 +27,10 @@ const commonModuleRules = isProd => [
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: true,
-          config: {
-            path: 'postcss.config.js'
-          }
-        }
+          postcssOptions: {
+            plugins: ['postcss-preset-env'],
+          },
+        },
       },
       'sass-loader',
     ],
@@ -39,6 +38,7 @@ const commonModuleRules = isProd => [
 ];
 
 const config = {
+  devtool: 'source-map',
   context: __dirname,
   entry: {
     client: ['./src/index.tsx'],
@@ -104,7 +104,7 @@ const config = {
     ],
   },
   plugins: [
-    new webpack.HashedModuleIdsPlugin(),
+    new webpack.ids.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
@@ -130,12 +130,8 @@ const config = {
 
 module.exports = (env, argv) => {
   if (argv.mode === 'production') {
-    config.devtool = '';
     config.optimization = {
-      namedModules: false,
-      namedChunks: false,
       flagIncludedChunks: true,
-      occurrenceOrder: true,
       sideEffects: true,
       usedExports: true,
       concatenateModules: true,
@@ -154,6 +150,9 @@ module.exports = (env, argv) => {
       noEmitOnErrors: true,
       checkWasmTypes: true,
       minimize: true,
+      minimizer: [
+        new TerserPlugin()
+      ]
     };
 
     config.module.rules = [
@@ -163,17 +162,11 @@ module.exports = (env, argv) => {
 
     config.plugins = [
       ...config.plugins,
-      new TerserPlugin({
-        parallel: true,
-        chunkFilter: () => true,
-        terserOptions: {
-          ecma: 6,
-          output: {
-            comments: false,
-          },
-        },
+      new CopyPlugin({
+          patterns: [
+            { from: 'src/public', to: 'public' }
+          ],
       }),
-      new CopyPlugin([{ from: 'src/public', to: 'public' }]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
@@ -189,7 +182,6 @@ module.exports = (env, argv) => {
       }),
     ];
     config.module.rules = [...config.module.rules, ...commonModuleRules(false)];
-    config.devtool = 'source-map';
   }
 
   return config;

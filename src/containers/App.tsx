@@ -29,7 +29,7 @@ const downloadPDF = () => {
   const link = document.createElement('a');
 
   link.href = PDF_LINK;
-  link.download = 'jim-resume-v2.pdf';
+  link.download = 'jim-resume-v3.pdf';
   link.dispatchEvent(new MouseEvent('click'));
 };
 

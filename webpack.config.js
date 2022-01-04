@@ -16,28 +16,7 @@ const META = {
   author: 'Jim Lin',
 };
 
-const commonModuleRules = isProd => [
-  {
-    test: /\.s[c]ss$/i,
-    exclude: /node_modules/,
-    use: [
-      // fallback to style-loader in development
-      isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-      'css-loader',
-      {
-        loader: 'postcss-loader',
-        options: {
-          postcssOptions: {
-            plugins: ['postcss-preset-env'],
-          },
-        },
-      },
-      'sass-loader',
-    ],
-  },
-];
-
-const config = {
+const generateConfig = (isProd) => ({
   devtool: 'source-map',
   context: __dirname,
   entry: {
@@ -88,6 +67,24 @@ const config = {
         ],
       },
       {
+        test: /\.s[c]ss$/i,
+        exclude: /node_modules/,
+        use: [
+          // fallback to style-loader in development
+          isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: ['postcss-preset-env'],
+              },
+            },
+          },
+          'sass-loader',
+        ],
+      },
+      {
         test: /\.(png|jpe?g|gif|css|woff(2)?|ttf|eot)$/i,
         use: [
           {
@@ -95,12 +92,6 @@ const config = {
           },
         ],
       },
-      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      // {
-      //   enforce: 'pre',
-      //   test: /\.js$/,
-      //   loader: 'source-map-loader'
-      // }
     ],
   },
   plugins: [
@@ -120,69 +111,55 @@ const config = {
       author: META.author,
     }),
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(
+        isProd ? 'production' : 'development'
+      ),
+    }),
+    ...[
+      isProd
+        ? [
+            new CopyPlugin({
+              patterns: [{ from: 'src/public', to: 'public' }],
+            }),
+            new webpack.DefinePlugin({
+              'process.env.NODE_ENV': JSON.stringify('production'),
+            }),
+            new webpack.optimize.ModuleConcatenationPlugin(),
+            new webpack.NoEmitOnErrorsPlugin(),
+          ]
+        : [],
+    ],
   ],
-};
-
-module.exports = (env, argv) => {
-  if (argv.mode === 'production') {
-    config.optimization = {
-      flagIncludedChunks: true,
-      sideEffects: true,
-      usedExports: true,
-      concatenateModules: true,
-      splitChunks: {
-        cacheGroups: {
-          // match the entry point and spit out the file named here
-          vendor: {
-            chunks: 'initial',
-            name: 'vendor',
-            test: 'vendor',
-            filename: 'vendor.js',
-            enforce: true,
+  optimization: isProd
+    ? {
+        flagIncludedChunks: true,
+        sideEffects: true,
+        usedExports: true,
+        concatenateModules: true,
+        splitChunks: {
+          cacheGroups: {
+            // match the entry point and spit out the file named here
+            vendor: {
+              chunks: 'initial',
+              name: 'vendor',
+              test: 'vendor',
+              filename: 'vendor.js',
+              enforce: true,
+            },
           },
         },
-      },
-      noEmitOnErrors: true,
-      checkWasmTypes: true,
-      minimize: true,
-      minimizer: [
-        new TerserPlugin()
-      ]
-    };
+        noEmitOnErrors: true,
+        checkWasmTypes: true,
+        minimize: true,
+        minimizer: [new TerserPlugin()],
+      }
+    : {},
+});
 
-    config.module.rules = [
-      ...config.module.rules,
-      ...commonModuleRules(true),
-    ]
-
-    config.plugins = [
-      ...config.plugins,
-      new CopyPlugin({
-          patterns: [
-            { from: 'src/public', to: 'public' }
-          ],
-      }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('production'),
-      }),
-      new webpack.optimize.ModuleConcatenationPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-    ];
-    config.module.rules[2].use[0] =  MiniCssExtractPlugin.loader;
-  } else {
-    config.plugins = [
-      ...config.plugins,
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify('development'),
-      }),
-    ];
-    config.module.rules = [...config.module.rules, ...commonModuleRules(false)];
-  }
-
-  return config;
+module.exports = (env, argv) => {
+  return generateConfig(argv.mode === 'production');
 };

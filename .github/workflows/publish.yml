@@ -5,11 +5,10 @@ on:
             - master
 jobs:
     build:
-        name: Build and deploy gh-pages
+        name: Build and deploy to Git Page
         env:
-            MY_SECRET: ${{secrets.commit_secret}}
             USER_NAME: JimLin94
-            USER_EMAIL: jimlin7694@gmail.com
+            USER_EMAIL: ${{secrets.USER_EMAIL}}
             PUBLISH_DIR: ./dist
         runs-on: ubuntu-latest
         strategy:
@@ -27,16 +26,20 @@ jobs:
             - name: npm run build
               run: |
                   npm run build
-            - name: Commit files
+            - name: Commit files & Push commits
               run: |
-                  cd $PUBLISH_DIR
+                  mkdir ./temp
+                  cd ./temp
                   git init
-                  git config --local user.name $USER_NAME
+                  git remote add origin https://${{ secrets.ACCESS_TOKEN }}@github.com/JimLin94/jimlin94.github.io.git
                   git config --local user.email $USER_EMAIL
+                  git config --local user.name $USER_NAME
+                  git pull origin master
+                  cp -a ../$PUBLISH_DIR/. ./
+                  echo "List all the build files. 🗂"
+                  ls
+                  git add .
+                  git commit -m "${{ github.event.head_commit.message }}"
                   git status
-                  git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
-                  git checkout -b gh-pages
-                  git add --all
-                  git commit -m "deploy to Github pages"
-                  git push origin gh-pages -f
-                  echo 🤘 deploy gh-pages complete.
+                  git push -f origin master
+                  echo "Job done! 🚀"

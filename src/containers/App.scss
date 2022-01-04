@@ -1,4 +1,4 @@
-@import '~sass/global.scss';
+@import '~@sass/global.scss';
 
 h1,
 h2,
@@ -40,8 +40,8 @@ a {
   cursor: pointer;
 }
 
-
-a, button {
+a,
+button {
   outline: none;
 }
 
@@ -60,21 +60,24 @@ a, button {
 label {
   color: $g-777;
 
-  &+span {
+  & + span {
     color: #000;
   }
 }
 
 html {
   font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   @include respond-to(medium-screens) {
     font-size: 16px;
   }
 }
 
-body, html {
+body,
+html {
   overflow-x: hidden;
 }
 
@@ -83,9 +86,8 @@ h2,
 h3,
 h4 {
   &::after {
-    content: "";
-    background-color:
-      $second-theme;
+    content: '';
+    background-color: $second-theme;
     border-radius: 50%;
     display: inline-block;
     margin-left: 5px;
@@ -126,7 +128,7 @@ h4 {
   }
 
   .main {
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     z-index: 1;
 
     &.offset-right {
@@ -144,7 +146,7 @@ h4 {
       justify-content: flex-start;
       align-items: center;
       margin-bottom: 1.5rem;
-      padding: .5em 1em;
+      padding: 0.5em 1em;
       background-color: $main-theme;
       border-radius: 20px;
       color: #fff;
@@ -161,9 +163,8 @@ h4 {
         vertical-align: middle;
         padding: 0;
 
-        >span {
-          background:
-            #fff;
+        > span {
+          background: #fff;
           border-radius: 10px;
           display: block;
           height: 4px;
@@ -198,7 +199,7 @@ h4 {
     left: 15px;
     width: 265px;
     transform: translateX(-200%);
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     z-index: 10;
 
     &.mDisplay {
@@ -221,7 +222,7 @@ h4 {
       border-radius: 20px;
       color: #fff;
       background-color: $main-theme;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
 
       @include respond-to(medium-screens) {
         width: 300px;
@@ -271,7 +272,7 @@ h4 {
         flex-direction: column;
         align-items: flex-start;
 
-        >h2 {
+        > h2 {
           margin-top: 1em;
         }
       }
@@ -281,10 +282,10 @@ h4 {
         flex-direction: column;
         justify-content: flex-start;
 
-        >a {
+        > a {
           position: relative;
           margin: 1em;
-          transition: all .3s ease-in-out;
+          transition: all 0.3s ease-in-out;
           color: #fff;
 
           &.active {
@@ -331,7 +332,7 @@ h4 {
     flex-flow: wrap;
     justify-content: space-evenly;
 
-    >* {
+    > * {
       margin-bottom: 30px;
     }
   }

@@ -1,8 +1,21 @@
 {
-    "plugins": [
-        ["@babel/plugin-transform-react-jsx", {
-            "pragma": "h",
-            "pragmaFrag": "Fragment"
-        }]
-    ]
+  "presets": [
+      "@babel/env",
+      "@babel/react",
+      "@babel/preset-typescript"
+  ],
+  "plugins": ["@babel/plugin-transform-runtime"],
+  "env": {
+    "server": {
+        "plugins": [
+            [
+                "css-modules-transform", {
+                    "preprocessCss": "./loaders/sass-loader.js",
+                    "generateScopedName": "[hash:8]",
+                    "extensions": [".scss"]
+                }
+            ]
+        ]
+    }
+}
 }

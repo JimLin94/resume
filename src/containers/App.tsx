@@ -1,25 +1,19 @@
 import React, { useReducer, useEffect, useRef } from 'react';
 import cx from 'classnames';
-import * as smoothscroll from 'smoothscroll-polyfill';
 import {
   PROFILE_IMG_LINK,
   PDF_LINK,
   WORK_FROM_YEAR_TIME_STAMP,
-} from 'constants/config';
-import Block from 'components/Block/Block';
-import Button from 'components/Button/Button';
-import Avatar from 'components/Avatar/Avatar';
-import LazyImage from 'components/LazyImage/LazyImage';
-import { calcCareerTimestampToYear } from 'utils/time';
-import throttle from 'utils/throttle';
-import defaultConsole from 'utils/defaultConsole';
+} from '@constants/config';
+import Block from '@components/Block/Block';
+import Button from '@components/Button/Button';
+import Avatar from '@components/Avatar/Avatar';
+import LazyImage from '@components/LazyImage/LazyImage';
+import { calcCareerTimestampToYear } from '@utils/time';
+import throttle from '@utils/throttle';
+import defaultConsole from '@utils/defaultConsole';
 
 import './App.scss';
-
-smoothscroll.polyfill();
-
-// @ts-ignore
-window.__forceSmoothScrollPolyfill__ = true;
 
 const goSourceCode = () => {
   location.href = 'https://github.com/JimLin94/resume';
@@ -139,7 +133,16 @@ const contentNavMap = [
               <p>Job title: Senior Front-End Developer.</p>
 
               <p>
-                Trend Micro Inc. (トレンドマイクロ株式会社, Torendo Maikuro Kabushiki-Gaisha) is an American-Japanese multinational cyber security software company with global headquarters in Tokyo, Japan and Irving, Texas, United States, with regional headquarters and R&D centers in Asia, Europe, and North America. The company develops enterprise security software for servers, containers, cloud computing environments, networks, and end points. Its cloud and virtualization security products provide automated security for customers of VMware, Amazon AWS, Microsoft Azure,and Google Cloud Platform.
+                Trend Micro Inc. (トレンドマイクロ株式会社, Torendo Maikuro
+                Kabushiki-Gaisha) is an American-Japanese multinational cyber
+                security software company with global headquarters in Tokyo,
+                Japan and Irving, Texas, United States, with regional
+                headquarters and R&D centers in Asia, Europe, and North America.
+                The company develops enterprise security software for servers,
+                containers, cloud computing environments, networks, and end
+                points. Its cloud and virtualization security products provide
+                automated security for customers of VMware, Amazon AWS,
+                Microsoft Azure,and Google Cloud Platform.
               </p>
 
               <h4>Product Introduction:</h4>
@@ -158,7 +161,11 @@ const contentNavMap = [
 
               <h4>Services: </h4>
               <ul>
-                <li>File Storage Security provides anti-malware scanning on resources in Amazon Simple Storage Service (Amazon S3) buckets and other cloud containers.</li>
+                <li>
+                  File Storage Security provides anti-malware scanning on
+                  resources in Amazon Simple Storage Service (Amazon S3) buckets
+                  and other cloud containers.
+                </li>
               </ul>
 
               <h4>Responsibility: </h4>
@@ -167,12 +174,8 @@ const contentNavMap = [
                   Develop new web applications and maintain current web
                   applications.
                 </li>
-                <li>
-                  Develop and maintain the CI/CD.
-                </li>
-                <li>
-                  Develop and maintain the AWS infra.
-                </li>
+                <li>Develop and maintain the CI/CD.</li>
+                <li>Develop and maintain the AWS infra.</li>
               </ul>
             </div>
           </div>
@@ -315,8 +318,12 @@ const contentNavMap = [
 
 contentNavMap.forEach((n, idx) => {
   nav.push(n.menu);
-  content.push(<div key={idx} id={idx}>{n.content}</div>);
-})
+  content.push(
+    <div key={idx} id={`${idx}`}>
+      {n.content}
+    </div>
+  );
+});
 
 enum ActionTypes {
   toggleMobileSidebar,
@@ -390,7 +397,7 @@ export default function App() {
     });
   };
 
-  const handleScroll = throttle(function() {
+  const handleScroll = throttle(function () {
     for (const idx in blockOffset.current) {
       if (
         window.scrollY >

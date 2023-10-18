@@ -9,11 +9,11 @@ jobs:
         env:
             USER_NAME: JimLin94
             USER_EMAIL: ${{secrets.USER_EMAIL}}
-            PUBLISH_DIR: ./dist
+            PUBLISH_DIR: ./out
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node-version: [14.x]
+                node-version: [18.x]
         steps:
             - uses: actions/checkout@v2
             - name: Use Node.js ${{ matrix.node-version }}

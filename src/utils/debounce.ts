@@ -1,13 +1,13 @@
 export default function debounce(fn: () => void, delay: number) {
-  let timer: number = null;
+  let timer: number = -1;
 
-  return function() {
+  return function () {
     const context = this;
-    const args = arguments;
+    const [args] = Array.from(arguments);
 
     clearTimeout(timer);
     // @ts-ignore
-    timer = setTimeout(function() {
+    timer = setTimeout(function () {
       fn.apply(context, args);
     }, delay);
   };

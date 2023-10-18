@@ -1,0 +1,8 @@
+.list {
+    list-style-type: decimal;
+
+    & li {
+        margin-bottom: 1em;
+        line-height: 1.5em;
+    }
+}

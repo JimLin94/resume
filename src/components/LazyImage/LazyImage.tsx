@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './LazyImage.scss';
+import './LazyImage.module.scss';
 
 interface Props {
   size?: 'lg' | 'm';
@@ -9,10 +9,7 @@ interface Props {
   onClick?: (param: any) => void;
 }
 
-export default function LazyImage({
-  url,
-  size = 'lg',
-}: Props) {
+export default function LazyImage({ url, size = 'lg' }: Props) {
   const [isLoad, setIsLoad] = useState<boolean>(false);
 
   useEffect(() => {
@@ -29,7 +26,7 @@ export default function LazyImage({
   return (
     <div className={`image ${size}`}>
       {isLoad ? (
-        <img src={url} />
+        <img src={url} alt="Jim Lin Resume" className="max-w-[100%]" />
       ) : (
         <div className="placeholder">
           <div className="shine" />

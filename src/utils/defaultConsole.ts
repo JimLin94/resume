@@ -1,5 +1,6 @@
 export default function browserConsoleASCII() {
-  console.log(`%c\x1b[33m
+  console.log(
+    `%c\x1b[33m
                      _oo0oo_
                     o8888888o
                     88" . "88
@@ -19,6 +20,8 @@ export default function browserConsoleASCII() {
    =====\`-.____\`.___ \_____/___.-\`___.-'=====
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-             佛祖保佑            永無BUG
-`, "font-family:monospace");
+             There are no bugs, only features.
+`,
+    'font-family:monospace'
+  );
 }

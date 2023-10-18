@@ -1,24 +1,32 @@
 {
     "compilerOptions": {
-      "outDir": "./dist/",
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "target": "es6",
-      "jsx": "react",
-      "baseUrl": "./src",
-      "paths": {
-        "@containers/*": ["containers/*"],
-        "@components/*": ["components/*"],
-        "@constants/*": ["constants/*"],
-        "@context/*": ["context/*"],
-        "@utils/*": ["utils/*"],
-        "@sass/*": ["sass/*"],
-        "@hooks/*": ["hooks/*"]
-      }
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "noImplicitThis": false,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "incremental": true,
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "paths": {
+            "@/*": ["./src/*"],
+            "@components/*": ["./src/components/*"],
+            "@constants/*": ["./src/constants/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@styles/*": ["./src/styles/*"]
+        }
     },
-    "exclude": [
-      "dist"
-    ]
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "exclude": ["node_modules"]
 }

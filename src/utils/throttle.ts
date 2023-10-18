@@ -1,14 +1,14 @@
 export default function throttle(fn: () => void, delay: number) {
   let wait: boolean = false;
 
-  return function() {
+  return function () {
     if (!wait) {
       const context = this;
-      const args = arguments;
+      const [args] = Array.from(arguments);
 
       fn.apply(context, args);
 
-      setTimeout(function() {
+      setTimeout(function () {
         wait = false;
       }, delay);
     }

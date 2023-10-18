@@ -113,7 +113,6 @@ jobs:
               run: |
                   # Add remote with PAT authentication
                   git remote add authenticated https://x-access-token:${GH_PAT}@github.com/JimLin94/jimlin94.github.io
-                  git remote add authenticated https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git
 
                   # Add and commit the changes
                   touch ${{ steps.date.outputs.date }}.txt

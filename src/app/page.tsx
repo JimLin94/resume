@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef, memo } from 'react';
 import cx from 'classnames';
 
 import Home from '@components/Home';
@@ -82,6 +82,24 @@ const reducer = (state: State, action: Action) => {
       return state;
   }
 };
+
+const MemoizedAvatar = memo(
+  function MemoizedAvatar() {
+    return <Avatar link={PROFILE_IMG_PATH} size="m" />;
+  },
+  () => true
+);
+
+const MemoizedMobileHeader = memo(
+  function MemoizedMobileHeader({
+    onClick,
+  }: {
+    onClick: (e: React.MouseEvent) => void;
+  }) {
+    return <MobileHeader onClick={onClick} />;
+  },
+  () => true
+);
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -170,7 +188,7 @@ export default function App() {
   return (
     <main className="app">
       <div className={cx('main', { 'offset-right': state.shouldShowSidebar })}>
-        <MobileHeader onClick={handleToggleSidebar} />
+        <MemoizedMobileHeader onClick={handleToggleSidebar} />
         {content}
       </div>
       <div
@@ -178,7 +196,7 @@ export default function App() {
       >
         <div className="header">
           <div className="close" onClick={handleToggleSidebar} />
-          <Avatar link={PROFILE_IMG_PATH} size="m" />
+          <MemoizedAvatar />
           <h2 className="text-4xl leading-[6rem]">Jim Lin</h2>
           <p className="uppercase">Front-end Developer</p>
           <nav className="nav-content">{renderNav}</nav>

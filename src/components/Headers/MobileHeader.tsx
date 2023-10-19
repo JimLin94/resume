@@ -15,7 +15,7 @@ const MobileHeader = ({ onClick }: Props) => (
     </button>
     <div className="profile">
       <Avatar link={PROFILE_IMG_PATH} />
-      <h2>Jim Lin</h2>
+      <h2 className="ml-2">Jim Lin</h2>
     </div>
   </div>
 );

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Block from '@components/Block';
 import ButtonLink from '@components/Button/ButtonLink';
-import { GITHUB_URL, LINKEDIN_URL } from '@constants/config';
+import { GITHUB_URL, LINKEDIN_URL, GITHUB_REPO_NAME } from '@constants/config';
 
 const About = () => (
   <Block theme="white">
@@ -23,7 +23,7 @@ const About = () => (
       <ButtonLink href={LINKEDIN_URL}>
         <span className="align-middle text-lg">
           <Image
-            src="/linkedin.svg"
+            src={`/${GITHUB_REPO_NAME}/linkedin.svg`}
             alt="Linkedin Icon"
             width={20}
             height={20}
@@ -38,7 +38,7 @@ const About = () => (
       <ButtonLink href={GITHUB_URL}>
         <span className="align-middle text-lg">
           <Image
-            src="/github.svg"
+            src={`/${GITHUB_REPO_NAME}/github.svg`}
             alt="GitHub Icon"
             width={20}
             height={20}

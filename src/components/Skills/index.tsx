@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Block from '@components/Block';
 import List from '@components/List';
+import { GITHUB_REPO_NAME } from '@constants/config';
 
 import './style.css';
 
@@ -10,19 +11,29 @@ const Skills = () => (
     <h2 className="title-decoration text-2xl leading-[2rem] mb-12">Skills</h2>
     <div className="icons">
       <Image
-        src="/Javascript.svg"
+        src={`/${GITHUB_REPO_NAME}/Javascript.svg`}
         alt="Javascript Logo"
         width={128}
         height={128}
       />
-      <Image src="/nodejs.svg" alt="Node.js Logo" width={128} height={128} />
       <Image
-        src="/Typescript.svg"
+        src={`/${GITHUB_REPO_NAME}/nodejs.svg`}
+        alt="Node.js Logo"
+        width={128}
+        height={128}
+      />
+      <Image
+        src={`/${GITHUB_REPO_NAME}/Typescript.svg`}
         alt="Typescript Logo"
         width={128}
         height={128}
       />
-      <Image src="/React.svg" alt="React.js Logo" width={128} height={128} />
+      <Image
+        src={`/${GITHUB_REPO_NAME}/React.svg`}
+        alt="React.js Logo"
+        width={128}
+        height={128}
+      />
     </div>
     <div className="desc">
       <div>

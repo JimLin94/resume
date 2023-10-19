@@ -2,7 +2,7 @@ import React from 'react';
 import Block from '@components/Block';
 import ButtonLink from '@components/Button/ButtonLink';
 
-import { PDF_LINK } from '@constants/config';
+import { PDF_PATH } from '@constants/config';
 
 const Home = () => (
   <Block>
@@ -21,7 +21,7 @@ const Home = () => (
         blueprints and overcoming complex challenges
       </p>
       <hr className="my-6" />
-      <ButtonLink isDownload href={PDF_LINK}>
+      <ButtonLink isDownload href={PDF_PATH}>
         <span>Download CV</span>
       </ButtonLink>
     </div>

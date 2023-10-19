@@ -12,7 +12,7 @@ import MobileHeader from '@components/Headers/MobileHeader';
 
 import defaultConsole from '@utils/defaultConsole';
 import throttle from '@utils/throttle';
-import { PROFILE_IMG_LINK } from '@constants/config';
+import { PROFILE_IMG_PATH } from '@constants/config';
 
 enum ActionTypes {
   toggleMobileSidebar,
@@ -178,7 +178,7 @@ export default function App() {
       >
         <div className="header">
           <div className="close" onClick={handleToggleSidebar} />
-          <Avatar link={PROFILE_IMG_LINK} size="m" />
+          <Avatar link={PROFILE_IMG_PATH} size="m" />
           <h2 className="text-4xl leading-[6rem]">Jim Lin</h2>
           <p className="uppercase">Front-end Developer</p>
           <nav className="nav-content">{renderNav}</nav>

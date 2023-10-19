@@ -1,5 +1,5 @@
 import Avatar from '@components/Avatar';
-import { PROFILE_IMG_LINK } from '@constants/config';
+import { PROFILE_IMG_PATH } from '@constants/config';
 import './style.css';
 
 type Props = {
@@ -14,7 +14,7 @@ const MobileHeader = ({ onClick }: Props) => (
       <span />
     </button>
     <div className="profile">
-      <Avatar link={PROFILE_IMG_LINK} />
+      <Avatar link={PROFILE_IMG_PATH} />
       <h2>Jim Lin</h2>
     </div>
   </div>

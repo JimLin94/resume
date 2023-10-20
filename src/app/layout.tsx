@@ -1,6 +1,6 @@
-import './globals.css';
 import cx from 'classnames';
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Noto_Sans_JP } from 'next/font/google';
 import {
   LINKEDIN_URL,
@@ -11,6 +11,8 @@ import {
   DESCRIPTION,
   LANDSCAPE_PROFILE_META_IMG_PATH,
 } from '@constants/config';
+
+import './globals.css';
 
 const notoSans = Noto_Sans_JP({
   weight: '400',
@@ -51,6 +53,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-GN6V015Q73"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || []; function gtag()
+            {window.dataLayer.push(arguments)}
+            gtag('js', new Date()); gtag('config', 'G-GN6V015Q73');
+          `}
+        </Script>
+      </head>
       <body className={cx(notoSans.className, 'leading-4 tracking-wide')}>
         {children}
       </body>

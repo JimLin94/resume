@@ -11,22 +11,58 @@ const Experience = () => (
     <div className="timeline">
       <div className="spot">
         <div className="title">
-          <p>2020 - Present</p>
+          <p>2024 - Present</p>
+        </div>
+        <div className="content">
+          <h3>Money Forward Inc.</h3>
+          <p>Senior Frontend Engineer</p>
+          <p>
+            Money Forward, Inc. (株式会社マネーフォワード) develops mobile
+            application software. The Company produces automatic household
+            account book softwares, household account book application
+            softwares, and other products. Money Forward also provides personal
+            financial management, cloud based accounting solutions, and other
+            services.
+          </p>
+          <h4>Responsibility:</h4>
+          <List>
+            <li>
+              Contribute to migrating the codebase from the legacy service to
+              the latest tech stacks.
+            </li>
+            <li>
+              Collaborate with multi-national team members to establish a
+              fast-iterate development environment.
+            </li>
+            <li>
+              Utilize User-Driven Development to achieve a competitive B2B
+              platform.
+            </li>
+          </List>
+          <p>
+            Technologies: Amazon AWS, JavaScript, Typescript, React.js, Next.js,
+            Node.js, HTML5, CSS3, Git
+          </p>
+        </div>
+      </div>
+      <hr className="my-6" />
+      <div className="spot">
+        <div className="title">
+          <p>2020 - 2024</p>
         </div>
         <div className="content">
           <h3>Trend Micro Inc.</h3>
           <p>Job title: Staff Frontend Developer</p>
           <p>
-            Trend Micro Inc. (トレンドマイクロ株式会社, Torendo Maikuro
-            Kabushiki-Gaisha) is an American-Japanese multinational cyber
-            security software company with global headquarters in Tokyo, Japan
-            and Irving, Texas, United States, with regional headquarters and R&D
-            centers in Asia, Europe, and North America. The company develops
-            enterprise security software for servers, containers, cloud
-            computing environments, networks, and end points. Its cloud and
-            virtualization security products provide automated security for
-            customers of VMware, Amazon AWS, Microsoft Azure,and Google Cloud
-            Platform.
+            Trend Micro Inc. (トレンドマイクロ株式会社) is an American-Japanese
+            multinational cyber security software company with global
+            headquarters in Tokyo, Japan and Irving, Texas, United States, with
+            regional headquarters and R&D centers in Asia, Europe, and North
+            America. The company develops enterprise security software for
+            servers, containers, cloud computing environments, networks, and end
+            points. Its cloud and virtualization security products provide
+            automated security for customers of VMware, Amazon AWS, Microsoft
+            Azure,and Google Cloud Platform.
           </p>
           <h4>Responsibility:</h4>
           <List>

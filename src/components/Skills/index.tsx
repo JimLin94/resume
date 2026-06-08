@@ -1,12 +1,13 @@
 import Image from 'next/image';
+import { GITHUB_REPO_NAME } from '@constants/config';
 import './styles.css';
 
 const CORE_STACK = [
-  { src: '/Javascript.svg', label: 'JavaScript' },
-  { src: '/Typescript.svg', label: 'TypeScript' },
-  { src: '/React.svg', label: 'React.js' },
-  { src: '/nodejs.svg', label: 'Node.js' },
-  { src: '/sass.svg', label: 'Sass' },
+  { src: `/${GITHUB_REPO_NAME}/Javascript.svg`, label: 'JavaScript' },
+  { src: `/${GITHUB_REPO_NAME}/Typescript.svg`, label: 'TypeScript' },
+  { src: `/${GITHUB_REPO_NAME}/React.svg`, label: 'React.js' },
+  { src: `/${GITHUB_REPO_NAME}/nodejs.svg`, label: 'Node.js' },
+  { src: `/${GITHUB_REPO_NAME}/sass.svg`, label: 'Sass' },
 ];
 
 export default function Skills() {

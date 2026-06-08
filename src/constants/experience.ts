@@ -11,7 +11,7 @@ export const RESUME_XP: XpEntry[] = [
   {
     period: '2024 — Present',
     company: 'Money Forward Inc.',
-    role: 'Senior Frontend Engineer',
+    role: 'Software Engineer',
     desc: 'Money Forward, Inc. (株式会社マネーフォワード) develops financial software — automatic household account books, personal financial management, and cloud-based accounting solutions.',
     points: [
       'Contributing to migrating the codebase from the legacy service to the latest tech stacks.',

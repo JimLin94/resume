@@ -30,16 +30,16 @@ export default function ProfileRail({ activeSection, onNavClick }: ProfileRailPr
             height={92}
             priority
           />
-          <div className="name">Jim Lin</div>
           <div className="role-pill">
             <span className="dot" />
             Front-end Developer
           </div>
+          <div className="name">Jim Lin</div>
 
           <div className="facts">
             <div className="fact">
               <MapPin size={16} />
-              <span>Taipei, Taiwan</span>
+              <span>Tokyo, Japan</span>
             </div>
             <div className="fact">
               <Mail size={16} />

@@ -1,0 +1,24 @@
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: var(--card-pad);
+  box-shadow: var(--glow-sm);
+}
+
+.about-text {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: var(--ink-2);
+}
+
+.about-text strong {
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .about-card {
+    padding: 24px;
+  }
+}

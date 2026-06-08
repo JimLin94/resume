@@ -1,211 +1,69 @@
 'use client';
 
-import { useEffect, useReducer, useRef, memo } from 'react';
-import cx from 'classnames';
+import { useEffect, useState, useCallback } from 'react';
 
-import Home from '@components/Home';
+import ProfileRail from '@components/ProfileRail';
+import Hero from '@components/Hero';
 import About from '@components/About';
 import Skills from '@components/Skills';
 import Experience from '@components/Experience';
-import Avatar from '@components/Avatar';
-import MobileHeader from '@components/Headers/MobileHeader';
+import Footer from '@components/Footer';
+import MobileBar from '@components/MobileBar';
+import ThemeToggle from '@components/ThemeToggle';
 
 import defaultConsole from '@utils/defaultConsole';
-import throttle from '@utils/throttle';
-import { PROFILE_IMG_PATH } from '@constants/config';
 
-enum ActionTypes {
-  toggleMobileSidebar,
-  ScrollToBlockId,
-}
-
-interface State {
-  shouldShowSidebar: boolean;
-  activeBlock: number;
-}
-
-const initialState: State = {
-  shouldShowSidebar: false,
-  activeBlock: 0,
-};
-
-type Action = {
-  type: ActionTypes;
-  payload?: any;
-};
-
-const SCROLL_MARGIN_TOP = 50;
-let nav: JSX.Element[] = [];
-let content: JSX.Element[] = [];
-
-const contentNavMap = [
-  {
-    menu: <span>Home</span>,
-    content: <Home />,
-  },
-  {
-    menu: <span>About</span>,
-    content: <About />,
-  },
-  {
-    menu: <span>Skills</span>,
-    content: <Skills />,
-  },
-  {
-    menu: <span>Work Experience</span>,
-    content: <Experience />,
-  },
-];
-
-contentNavMap.forEach((n, idx) => {
-  nav.push(n.menu);
-  content.push(
-    <div key={idx} id={`${idx}`}>
-      {n.content}
-    </div>
-  );
-});
-
-const reducer = (state: State, action: Action) => {
-  switch (action.type) {
-    case ActionTypes.toggleMobileSidebar:
-      return {
-        ...state,
-        shouldShowSidebar: !state.shouldShowSidebar,
-      };
-    case ActionTypes.ScrollToBlockId:
-      return {
-        ...state,
-        activeBlock: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-const MemoizedAvatar = memo(
-  function MemoizedAvatar() {
-    return <Avatar link={PROFILE_IMG_PATH} size="m" />;
-  },
-  () => true
-);
-
-const MemoizedMobileHeader = memo(
-  function MemoizedMobileHeader({
-    onClick,
-  }: {
-    onClick: (e: React.MouseEvent) => void;
-  }) {
-    return <MobileHeader onClick={onClick} />;
-  },
-  () => true
-);
+const SECTIONS = ['home', 'about', 'skills', 'experience'] as const;
+type Section = (typeof SECTIONS)[number];
 
 export default function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const blockOffset = useRef<{ offsetTop: number; divHeight: number }[]>([]);
+  const [activeSection, setActiveSection] = useState<Section>('home');
 
-  const handleClickNav = (navIdx: number) => (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    const targetBlock = document.getElementById('' + navIdx);
-
-    if (targetBlock) {
-      window.scrollTo({
-        top: targetBlock.offsetTop,
-        left: 0,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const renderNav = nav.map((n, idx) => (
-    <a
-      key={idx}
-      className={cx(
-        { active: state.activeBlock === idx },
-        'outline-none decoration-0'
-      )}
-      onClick={handleClickNav(idx)}
-      role="button"
-    >
-      {n}
-    </a>
-  ));
-
-  const handleToggleSidebar = (e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch({
-      type: ActionTypes.toggleMobileSidebar,
-    });
-  };
-
-  const handleScroll = throttle(function () {
-    for (const idx in blockOffset.current) {
-      if (
-        window.scrollY >
-          blockOffset.current[idx].offsetTop - SCROLL_MARGIN_TOP &&
-        blockOffset.current[idx].offsetTop +
-          blockOffset.current[idx].divHeight >
-          window.scrollY
-      ) {
-        dispatch({
-          type: ActionTypes.ScrollToBlockId,
-          payload: +idx,
-        });
-      }
-    }
-  }, 1000);
-
-  useEffect(() => {
-    const blockOffsetY = [];
-
-    for (const idx in content) {
-      const block = document.getElementById('' + idx);
-
-      if (block) {
-        blockOffsetY.push({
-          offsetTop: block.offsetTop,
-          divHeight: block.clientHeight,
-        });
-      }
-    }
-
-    blockOffset.current = blockOffsetY;
-    defaultConsole();
+  const handleNavClick = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   useEffect(() => {
-    if (blockOffset.current.length > 1) {
-      window.addEventListener('scroll', handleScroll);
-    }
+    defaultConsole();
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+    const spy = () => {
+      const y = window.scrollY + 140;
+      let current: Section = 'home';
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) current = id;
+      }
+      setActiveSection(current);
     };
-  }, [blockOffset.current]);
+
+    window.addEventListener('scroll', spy, { passive: true });
+    spy();
+    return () => window.removeEventListener('scroll', spy);
+  }, []);
 
   return (
-    <main className="app">
-      <div className={cx('main', { 'offset-right': state.shouldShowSidebar })}>
-        <MemoizedMobileHeader onClick={handleToggleSidebar} />
-        {content}
+    <>
+      <ThemeToggle />
+      <div className="shell">
+        <ProfileRail activeSection={activeSection} onNavClick={handleNavClick} />
+        <main className="content">
+          <section id="home">
+            <Hero />
+          </section>
+          <section id="about">
+            <About />
+          </section>
+          <section id="skills">
+            <Skills />
+          </section>
+          <section id="experience">
+            <Experience />
+          </section>
+          <Footer />
+        </main>
       </div>
-      <div
-        className={cx('header-wrapper', { mDisplay: state.shouldShowSidebar })}
-      >
-        <div className="header">
-          <div className="close" onClick={handleToggleSidebar} />
-          <MemoizedAvatar />
-          <h2 className="text-4xl leading-[6rem]">Jim Lin</h2>
-          <p className="uppercase">Front-end Developer</p>
-          <nav className="nav-content">{renderNav}</nav>
-        </div>
-      </div>
-      <div
-        className={cx('content-cover', { mDisplay: state.shouldShowSidebar })}
-        onClick={handleToggleSidebar}
-      />
-    </main>
+      <MobileBar activeSection={activeSection} onNavClick={handleNavClick} />
+    </>
   );
 }

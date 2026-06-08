@@ -1,54 +1,31 @@
-import Image from 'next/image';
-import Block from '@components/Block';
-import ButtonLink from '@components/Button/ButtonLink';
-import { GITHUB_URL, LINKEDIN_URL, GITHUB_REPO_NAME } from '@constants/config';
+import './styles.css';
 
-const About = () => (
-  <Block theme="white">
-    <h2 className="title-decoration text-2xl leading-[2rem] mb-12">About</h2>
-    <p className="my-1">
-      <label>Name:</label> <span>Jim Lin</span>
-    </p>
-    <p className="my-1">
-      <label>Birthday:</label> <span>4 September, 1987</span>
-    </p>
-    <p className="my-1">
-      <label>location:</label> <span>Taipei, Taiwan</span>
-    </p>
-    <p className="my-1">
-      <label>Email:</label> <span>jimlin7694@gmail.com</span>
-    </p>
-    <hr className="my-6" />
-    <div className="flex flex-col text-center md:flex-row md:text-left">
-      <ButtonLink href={LINKEDIN_URL}>
-        <span className="align-middle text-lg">
-          <Image
-            src={`/${GITHUB_REPO_NAME}/linkedin.svg`}
-            alt="Linkedin Icon"
-            width={20}
-            height={20}
-            className="inline-block mr-1 pb-1"
-          />
-          Linkedin
-        </span>
-      </ButtonLink>
+export default function About() {
+  return (
+    <div>
+      <div className="sec-head">
+        <h2>About</h2>
+        <span className="meta">Who you&apos;d be working with</span>
+      </div>
+      <div className="about-card">
+        <p className="about-text">
+          I thrive in collaborative, multi-national settings — steering projects
+          in sync with client blueprints and turning complex challenges into
+          shipped features. My work spans{' '}
+          <strong>cloud security in micro-frontend platforms</strong>,{' '}
+          <strong>performance &amp; Web Vitals</strong>, and{' '}
+          <strong>SEO-driven growth</strong>. I care about clean architecture,
+          comprehensive testing, and simple documentation that keeps teams fast.
+        </p>
+        <div className="chips" style={{ marginTop: '22px' }}>
+          <span className="chip">Micro-frontends</span>
+          <span className="chip">Cloud security</span>
+          <span className="chip">Performance</span>
+          <span className="chip">SEO</span>
+          <span className="chip">B2B platforms</span>
+          <span className="chip">User-Driven Development</span>
+        </div>
+      </div>
     </div>
-    <span className="mx-4 hidden md:visible">|</span>
-    <div className="flex flex-col text-center md:flex-row md:text-left">
-      <ButtonLink href={GITHUB_URL}>
-        <span className="align-middle text-lg">
-          <Image
-            src={`/${GITHUB_REPO_NAME}/github.svg`}
-            alt="GitHub Icon"
-            width={20}
-            height={20}
-            className="inline-block mr-1 pb-1"
-          />
-          GitHub
-        </span>
-      </ButtonLink>
-    </div>
-  </Block>
-);
-
-export default About;
+  );
+}

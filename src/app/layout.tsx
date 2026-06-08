@@ -1,7 +1,5 @@
-import cx from 'classnames';
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Noto_Sans_JP } from 'next/font/google';
 import {
   LINKEDIN_URL,
   GIT_PAGE_URL,
@@ -13,11 +11,6 @@ import {
 } from '@constants/config';
 
 import './globals.css';
-
-const notoSans = Noto_Sans_JP({
-  weight: '400',
-  subsets: ['latin'],
-});
 
 export const metadata: Metadata = {
   title: SITE_NAME,
@@ -52,8 +45,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Apply stored theme before first paint to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('jl-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
+          }}
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-GN6V015Q73"
@@ -66,9 +76,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={cx(notoSans.className, 'leading-4 tracking-wide')}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -46,7 +46,8 @@ export default function Skills() {
             <div className="chips">
               <span className="chip">React.js</span>
               <span className="chip">Next.js</span>
-              <span className="chip">Redux.js</span>
+              <span className="chip">Nest.js</span>
+              <span className="chip">AI Harness</span>
               <span className="chip">Micro Frontend</span>
               <span className="chip">Amazon AWS</span>
               <span className="chip">Unit Testing</span>

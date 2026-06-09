@@ -32,7 +32,7 @@ export default function ProfileRail({ activeSection, onNavClick }: ProfileRailPr
           />
           <div className="role-pill">
             <span className="dot" />
-            Front-end Developer
+            Software Engineer
           </div>
           <div className="name">Jim Lin</div>
 

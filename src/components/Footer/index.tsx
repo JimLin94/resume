@@ -4,7 +4,7 @@ import './styles.css';
 export default function Footer() {
   return (
     <footer className="foot">
-      <p>© 2025 Jim Lin · Frontend Developer · Taipei, Taiwan</p>
+      <p>© 2025 Jim Lin</p>
       <div className="foot-links">
         <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">

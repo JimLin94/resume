@@ -3,17 +3,17 @@ import './styles.css';
 export default function Hero() {
   return (
     <div className="hero">
-      <span className="eyebrow">Frontend Engineering</span>
+      <span className="eyebrow">Software Engineering</span>
       <h1>
-        Frontend Developer with <span className="hl">10 years</span> of building
+        Software Engineer with <span className="hl">10 years</span> of building
         products people rely on.
       </h1>
       <p className="lead">
-        A Staff Frontend Developer with a decade of experience driving project
-        success across diverse tech landscapes. I specialize in crafting
-        exceptional frontend features, fortifying cloud security in
-        micro-frontend platforms, and boosting SEO performance — working in
-        JavaScript, TypeScript, Node.js, React.js and AWS.
+        A Software Engineer with a decade of experience driving project success
+        across diverse tech landscapes. I specialize in crafting exceptional
+        software features, fortifying cloud security in micro-frontend platforms,
+        and boosting SEO performance — working in JavaScript, TypeScript,
+        Node.js, React.js and AWS.
       </p>
       <div className="hero-actions">
         <a className="btn btn-solid" href="#experience">

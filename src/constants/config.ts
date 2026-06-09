@@ -9,4 +9,4 @@ export const GIT_PAGE_URL = `https://jimlin94.github.io/${GITHUB_REPO_NAME}`;
 export const EMAIL = 'jimlin7694@gmail.com';
 export const SITE_NAME = "Jim's resume";
 export const AUTHOR = 'Jim Lin';
-export const DESCRIPTION = 'Looking for a Front-End developer?';
+export const DESCRIPTION = 'Looking for a Software Engineer?';
